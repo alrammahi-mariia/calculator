@@ -32,3 +32,11 @@ function operate(x, y, operator){
         return multiply(x,y);
 
 }
+
+    const btns = document.querySelectorAll("button");
+    const display = document.querySelector("input");
+    btns.forEach((button) => {
+        button.addEventListener("click", () =>
+        display.value = (button.id)
+        )
+    })
