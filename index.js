@@ -1,19 +1,3 @@
-function add(a, b){
-    return a + b
-}
-
-function subtract(a,b){
-    return a - b
-}
-
-function multiply (a, b){
-    return a * b
-}
-
-function divide (a, b){
-    return a / b
-}
-
 const numberButtons = document.querySelectorAll(".number");
 const operationButtons = document.querySelectorAll(".operation");
 const display = document.querySelector("input");
@@ -26,41 +10,82 @@ const resetButton = document.querySelector("#reset");
 const deleteButton = document.querySelector("#delete");
 
 
-    numberButtons.forEach((button) => {
-        button.addEventListener('click', () =>{
-        display.value = button.innerText;
-        currentNum = display.value;
-        console.log(`currentNum: ${currentNum}`);
+numberButtons.forEach((button) => {
+    button.addEventListener('click', () =>{
+    appendNumber(button.innerText);
+    updateDisplay();
 
-    })
-    })
+})
+})
 
 
  operationButtons.forEach(button => {
     button.addEventListener('click', () => {
-        display.value = button.innerText;
-        operator = display.value;
-        console.log(operator);
+        chooseOperation(button.innerText);
+        updateDisplay();
     })
  })
 
-function operate(previousOperand, currentOperand, operator){
-    const prev = parseFloat(previousOperand);
-    const current = parseFloat(currentOperand);
+  
+let currentNumber = '';
+let previousNumber = '';
+let operation = null;
 
-    if (operator === "+"){
-        return add(prev,current);
-    }
-    else if (operator === "-"){
-        return subtract(prev,current);
-    } 
-    else if (operator === "/"){
-        return divide(prev,current);
-    } 
-    else (operator === "*")
-        return multiply(prev,current);
+ operateButton.addEventListener('click', operate);
+
+
+
+function appendNumber(number){
+   currentNumber = currentNumber.toString() + number.toString();
+   console.log(currentNumber);
 
 }
 
- operateButton.addEventListener('click', () => 
-    console.log(operate()));
+function chooseOperation(selectedOperator){
+   operation = selectedOperator;
+   previousNumber = currentNumber;
+   currentNumber = '';
+   console.log(previousNumber);
+}
+
+function operate(){
+    let computation;
+    const prev = parseFloat(previousNumber);
+    const current = parseFloat(currentNumber);
+    if (isNaN(prev) || isNaN(current)) return;
+
+    switch(operation){
+        case '+':
+            computation = prev + current;
+        break;
+        case '-':
+            computation = prev - current;
+        break;
+        case 'x':
+            computation = prev * current;
+        break;
+        case '/':
+            computation = prev / current;
+        break;
+        default:
+            return;
+
+    }
+
+    currentNumber = computation;
+    previousNumber = '';
+    operation = undefined;
+    updateDisplay();
+    console.log(currentNumber);
+}
+
+function updateDisplay(){
+    display.value = previousNumber + ' ' + (operation || '') + ' ' + currentNumber;
+
+}
+
+
+// function updateDisplay() {
+//     document.getElementById('current-operand').innerText = currentOperand;
+//     document.getElementById('previous-operand').innerText = previousOperand + ' ' + (operation || '');
+//   }
