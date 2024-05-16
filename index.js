@@ -6,7 +6,7 @@ const subtractButton = document.querySelector("#subtract");
 const multiplyButton = document.querySelector("#multiply");
 const divideButton = document.querySelector("#divide");
 const operateButton = document.querySelector("#operate");
-const resetButton = document.querySelector("#reset");
+const clearButton = document.querySelector("#clear");
 const deleteButton = document.querySelector("#delete");
 
 
@@ -32,7 +32,8 @@ let previousNumber = '';
 let operation = null;
 
  operateButton.addEventListener('click', operate);
-
+ clearButton.addEventListener('click', clear);
+ deleteButton.addEventListener('click', deleteNumber);
 
 
 function appendNumber(number){
@@ -46,6 +47,19 @@ function chooseOperation(selectedOperator){
    previousNumber = currentNumber;
    currentNumber = '';
    console.log(previousNumber);
+}
+
+function clear(){
+    currentNumber = '';
+    previousNumber = '';
+    operation = null;
+    updateDisplay();
+}
+
+function deleteNumber(){
+    currentNumber = currentNumber.toString().slice(0,-1);
+    updateDisplay();
+
 }
 
 function operate(){
@@ -66,13 +80,16 @@ function operate(){
         break;
         case '/':
             computation = prev / current;
+            if (current === 0){
+                return (alert("Cannot divide by 0!"));
+            } 
         break;
         default:
             return;
 
     }
 
-    currentNumber = computation;
+    currentNumber = Math.round(computation * 100)/100;
     previousNumber = '';
     operation = undefined;
     updateDisplay();
@@ -83,9 +100,3 @@ function updateDisplay(){
     display.value = previousNumber + ' ' + (operation || '') + ' ' + currentNumber;
 
 }
-
-
-// function updateDisplay() {
-//     document.getElementById('current-operand').innerText = currentOperand;
-//     document.getElementById('previous-operand').innerText = previousOperand + ' ' + (operation || '');
-//   }
