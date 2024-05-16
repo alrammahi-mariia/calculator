@@ -14,29 +14,53 @@ function divide (a, b){
     return a / b
 }
 
-let x = 0;
-let y = 0;
-let operator = " ";
+const numberButtons = document.querySelectorAll(".number");
+const operationButtons = document.querySelectorAll(".operation");
+const display = document.querySelector("input");
+const addButton = document.querySelector("#add");
+const subtractButton = document.querySelector("#subtract");
+const multiplyButton = document.querySelector("#multiply");
+const divideButton = document.querySelector("#divide");
+const operateButton = document.querySelector("#operate");
+const resetButton = document.querySelector("#reset");
+const deleteButton = document.querySelector("#delete");
 
-function operate(x, y, operator){
+
+    numberButtons.forEach((button) => {
+        button.addEventListener('click', () =>{
+        display.value = button.innerText;
+        currentNum = display.value;
+        console.log(`currentNum: ${currentNum}`);
+
+    })
+    })
+
+
+ operationButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        display.value = button.innerText;
+        operator = display.value;
+        console.log(operator);
+    })
+ })
+
+function operate(previousOperand, currentOperand, operator){
+    const prev = parseFloat(previousOperand);
+    const current = parseFloat(currentOperand);
+
     if (operator === "+"){
-        return add(x,y);
+        return add(prev,current);
     }
     else if (operator === "-"){
-        return subtract(x,y);
+        return subtract(prev,current);
     } 
     else if (operator === "/"){
-        return divide(x,y);
+        return divide(prev,current);
     } 
     else (operator === "*")
-        return multiply(x,y);
+        return multiply(prev,current);
 
 }
 
-    const btns = document.querySelectorAll("button");
-    const display = document.querySelector("input");
-    btns.forEach((button) => {
-        button.addEventListener("click", () =>
-        display.value = (button.id)
-        )
-    })
+ operateButton.addEventListener('click', () => 
+    console.log(operate()));
