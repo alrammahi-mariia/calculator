@@ -90,10 +90,8 @@ function operate(){
             computation = prev * current;
         break;
         case '/':
-            computation = prev / current;
-            if (current === 0){
-                return (alert("Cannot divide by 0!"));
-            } 
+           if (current !== 0) computation = prev / current;
+           else alert("Cannot didivde by 0!")
         break;
         default:
             return;
@@ -104,7 +102,6 @@ function operate(){
     previousNumber = '';
     operation = undefined;
     updateDisplay();
-    console.log(currentNumber);
 }
 
 function updateDisplay(){
