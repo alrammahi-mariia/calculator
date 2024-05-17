@@ -68,7 +68,7 @@ button#clear {
     color: rgb(176, 124, 230);
 }
 
-button.number:hover {
+button.number:hover, #dot:hover {
     background-color: rgb(161, 101, 227);
     color: white;
 

@@ -8,6 +8,7 @@ const divideButton = document.querySelector("#divide");
 const operateButton = document.querySelector("#operate");
 const clearButton = document.querySelector("#clear");
 const deleteButton = document.querySelector("#delete");
+const dotButton = document.querySelector("#dot");
 
 
 numberButtons.forEach((button) => {
@@ -34,9 +35,18 @@ let operation = null;
  operateButton.addEventListener('click', operate);
  clearButton.addEventListener('click', clear);
  deleteButton.addEventListener('click', deleteNumber);
+ dotButton.addEventListener('click', addDecimal);
 
+
+ function addDecimal(){
+    if(currentNumber.includes('.')) return;
+    if (currentNumber === '') currentNumber = '0';
+    currentNumber += '.';
+    updateDisplay();
+}
 
 function appendNumber(number){
+    if (number === "." && currentNumber.includes('.')) return;
    currentNumber = currentNumber.toString() + number.toString();
    console.log(currentNumber);
 
@@ -61,6 +71,7 @@ function deleteNumber(){
     updateDisplay();
 
 }
+
 
 function operate(){
     let computation;
