@@ -91,7 +91,9 @@ function operate(){
         break;
         case '/':
            if (current !== 0) computation = prev / current;
-           else alert("Cannot didivde by 0!")
+           else 
+           alert("Cannot divide by 0!");
+           computation = 0;
         break;
         default:
             return;
